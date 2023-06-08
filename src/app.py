@@ -6,13 +6,17 @@ from datetime import datetime, timedelta
 load_dotenv()  # Take environment variables from .env.
 print(os.environ.get('ARTEFACT_VERSION'))
 
-max_hours = int(os.environ.get('EC2_MAX_HOURS'))
-# Key tag for checking
-excep_word = 'dont shoot'
-
-# Make sure credentials are set
+# TODO Make sure credentials are set
 # AWS_ACCESS_KEY_ID
 # AWS_SECRET_ACCESS_KEY
+
+max_hours = int(os.environ.get('EC2_MAX_HOURS'))
+print(f"Time EC2 allowed to run: {max_hours}")
+
+# Key tag for checking
+except_word = 'dont shoot'
+print(f"Tag which allows to skip stopping: {except_word}")
+
 
 # Get a list of all available AWS regions, use us-west-2 as default region
 ec2_client = boto3.client('ec2', region_name='us-west-2')
@@ -33,8 +37,8 @@ for region in regions:
         tags = instance['Tags']
         excepted = False
         for tag in tags:
-            if tag['Key'] == excep_word:
-                print(f"Tag {excep_word} found in {instance_id} in region {region}.")
+            if tag['Key'] == except_word:
+                print(f"Tag {except_word} found in {instance_id} in region {region}.")
                 excepted = True
                 break
         else:
