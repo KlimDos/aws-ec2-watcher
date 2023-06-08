@@ -3,7 +3,8 @@ REPO="klimdos/aws-ec2-watcher"
 ARTEFACT_VERSION="$(git describe --long --always | sed -r "s/-(([^-]*-){1}[^-]*)$/.\\1/")"
 
 # creating app version
-echo "ARTEFACT_VERSION=${ARTEFACT_VERSION}" > src/.env
+#echo "ARTEFACT_VERSION=${ARTEFACT_VERSION}" > src/.env
+#sed -i "s|ARTEFACT_VERSION=.*|ARTEFACT_VERSION=${ARTEFACT_VERSION}|" src/.env
 
 
 # building
