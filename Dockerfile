@@ -5,7 +5,7 @@ WORKDIR /
 COPY src/ src/
 RUN pip install -r src/requirements.txt
 #EXPOSE 5000
-ARG EC2_MAX_HOURS
+ARG EC2_MAX_MINS
 #ENV FLASK_RUN_PORT=${FLASK_RUN_PORT} 
 ENTRYPOINT ["python"]
 CMD [ "src/app.py" ]

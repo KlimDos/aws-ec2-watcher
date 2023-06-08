@@ -11,7 +11,7 @@ bash build_manual.sh
 # run locally:
 ```
 docker run \
--e EC2_MAX_HOURS=1 \
+-e EC2_MAX_MINS=5 \
 -e AWS_ACCESS_KEY_ID="ABCDEFG" \
 -e AWS_SECRET_ACCESS_KEY="123abcABC" \
 klimdos/aws-ec2-watcher:<latest-tag>
@@ -56,7 +56,7 @@ kind: Secret
 metadata:
   name: aws-ec2-watcher-secret
 data:
-  EC2_MAX_HOURS: <base64> (optional)
+  EC2_MAX_MINS: <base64> (optional)
   AWS_ACCESS_KEY_ID: <base64>
   AWS_SECRET_ACCESS_KEY: <base64>
 ```

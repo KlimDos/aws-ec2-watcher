@@ -10,8 +10,8 @@ print(os.environ.get('ARTEFACT_VERSION'))
 # AWS_ACCESS_KEY_ID
 # AWS_SECRET_ACCESS_KEY
 
-max_hours = int(os.environ.get('EC2_MAX_HOURS'))
-print(f"Time EC2 allowed to run: {max_hours}")
+max_mins = int(os.environ.get('EC2_MAX_MINS'))
+print(f"Time EC2 allowed to run: {max_mins}")
 
 # Key tag for checking
 except_word = 'dont shoot'
@@ -50,6 +50,6 @@ for region in regions:
             current_time = datetime.now(launch_time.tzinfo)
             running_time = current_time - launch_time
 
-            if running_time > timedelta(hours=max_hours):
+            if running_time > timedelta(minutes=max_mins):
                 ec2.stop_instances(InstanceIds=[instance_id])
                 print(f"Instance {instance_id} in region {region} stopped.")
