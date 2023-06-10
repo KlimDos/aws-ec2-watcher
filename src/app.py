@@ -32,6 +32,11 @@ for region in regions:
     for instance in instances:
         instance_id = instance['InstanceId']
         state = instance['State']['Name']
+        launch_time = instance['LaunchTime']
+        current_time = datetime.now(launch_time.tzinfo)
+        running_time = current_time - launch_time
+
+        print(f"instance {instance_id} found in region {region} uptime - {running_time}")
 
         # Check if the super tag exists
         tags = instance['Tags']
@@ -41,15 +46,10 @@ for region in regions:
                 print(f"Tag {except_word} found in {instance_id} in region {region}.")
                 excepted = True
                 break
-        else:
-            print(f"Super tag not found in {instance_id} in region {region}.")
+        #else:
+            #print(f"Super tag not found in {instance_id} in region {region}.")
 
         # Stop the instance
-        if state == 'running' and not excepted:
-            launch_time = instance['LaunchTime']
-            current_time = datetime.now(launch_time.tzinfo)
-            running_time = current_time - launch_time
-
-            if running_time > timedelta(minutes=max_mins):
-                ec2.stop_instances(InstanceIds=[instance_id])
-                print(f"Instance {instance_id} in region {region} stopped.")
+        if state == 'running' and not excepted and running_time > timedelta(minutes=max_mins):
+            ec2.stop_instances(InstanceIds=[instance_id])
+            print(f"Instance {instance_id} stopped.")
