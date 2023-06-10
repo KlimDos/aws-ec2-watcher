@@ -36,7 +36,7 @@ for region in regions:
         current_time = datetime.now(launch_time.tzinfo)
         running_time = current_time - launch_time
 
-        print(f"instance {instance_id} found in region {region} uptime - {running_time}")
+        print(f"instance {instance_id} found in region {region}; last uptime: {running_time}; state: {state}")
 
         # Check if the super tag exists
         tags = instance['Tags']
